@@ -1,0 +1,23 @@
+{
+  "name": "04-file-transformers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "promises.test.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "eslint": "^5.16.0",
+    "jest": "^24.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint '**/*.js'",
+    "test-watch": "jest --watchAll --verbose --coverage",
+    "test": "jest --verbose --coverage"
+  },
+  "keywords": [],
+  "author": "Jesse Van Volkinburg",
+  "license": "MIT"
+}
