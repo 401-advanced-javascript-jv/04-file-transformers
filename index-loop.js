@@ -10,13 +10,14 @@ names.forEach( (name) => { console.log(name); });
 
 // Procedure:
 // Iterate over each string, get byte for each character, push the bytes one by one to a new buffer
-const loopBuffer = Buffer.alloc(insertCode.length);
+let loopBuffer = Buffer.alloc(0);
 
 for (let i = 0; i < insertCode.length; i++) {
-  loopBuffer[i] = insertCode.charCodeAt(i);
+  let charCode = insertCode.charCodeAt(i);
+  let charBuffer = Buffer.alloc(1);
+  charBuffer[0] = charCode;
+  loopBuffer = Buffer.concat([loopBuffer, charBuffer]);
 }
-
-console.log(loopBuffer);
 
 fs.writeFile('./files/loop.js', loopBuffer, (err) => {
   if (err) throw err;
