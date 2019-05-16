@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('fs').promises;
 
 // Code to write into file:
 const insertCode = `'use strict';
@@ -13,13 +13,11 @@ names.forEach( (name) => { console.log(name); });
 let loopBuffer = Buffer.alloc(0);
 
 for (let i = 0; i < insertCode.length; i++) {
-  let charCode = insertCode.charCodeAt(i);
   let charBuffer = Buffer.alloc(1);
-  charBuffer[0] = charCode;
+  charBuffer[0] = insertCode.charCodeAt(i);
   loopBuffer = Buffer.concat([loopBuffer, charBuffer]);
 }
 
-fs.writeFile('./files/loop.js', loopBuffer, (err) => {
-  if (err) throw err;
-  console.log('wrote file');
-});
+fs.writeFile('./files/loop.js', loopBuffer)
+  .then(() => { console.log('wrote file'); })
+  .catch((err) => { throw err; });
