@@ -17,16 +17,36 @@ const buffers = {
 let indexBuffer = Buffer.alloc(0);
 
 fs.readFile('./files/pair-programming.txt')
-  .then((fileContents) => {
-
-    indexBuffer = Buffer.concat([indexBuffer, buffers.article, buffers.newline]);
-    console.log(bufferToString(indexBuffer));
-
-  })
-  // .then(() => { console.log(fileBuffer); })
+  .then((fileContents) => { buildIndex(fileContents); })
   .catch((err) => {
     throw err;
   });
+
+function buildIndex(fileContents) {
+  let pointer = { s: 0, f: 0 };
+
+  indexBuffer = Buffer.concat([
+    indexBuffer,
+    buffers.article,
+    buffers.newline,
+    buffers.h2,
+  ]);
+
+  pointer.f = fileContents.indexOf(buffers.newline, pointer.s);
+
+  indexBuffer = Buffer.concat([
+    indexBuffer,
+    fileContents.slice(pointer.s, pointer.f),
+    buffers.h2Close,
+  ]);
+
+  pointer.s = pointer.f;
+  // pointer.f = fileContents.indexOf();
+
+  console.log(bufferToString(indexBuffer));
+}
+
+// Helper functions
 
 /**
  * stringToBuffer takes in a string and returns a buffer
