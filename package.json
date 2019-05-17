@@ -12,7 +12,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
+    "loop": "node index-loop.js",
+    "article": "node index-article.js",
     "lint": "eslint '**/*.js'",
     "test-watch": "jest --watchAll --verbose --coverage",
     "test": "jest --verbose --coverage"
