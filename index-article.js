@@ -3,15 +3,15 @@
 const fs = require('fs').promises;
 
 const buffers = {
-  article: createBuffer('<article>'),
-  articleClose: createBuffer('</article>'),
-  h2: createBuffer('<h2>'),
-  h2Close: createBuffer('</h2>'),
-  h3: createBuffer('<h3>'),
-  h3Close: createBuffer('</h3>'),
-  p: createBuffer('<p>'),
-  pClose: createBuffer('</p>'),
-  newline: createBuffer('\n'),
+  article: stringToBuffer('<article>'),
+  articleClose: stringToBuffer('</article>'),
+  h2: stringToBuffer('<h2>'),
+  h2Close: stringToBuffer('</h2>'),
+  h3: stringToBuffer('<h3>'),
+  h3Close: stringToBuffer('</h3>'),
+  p: stringToBuffer('<p>'),
+  pClose: stringToBuffer('</p>'),
+  newline: stringToBuffer('\n'),
 };
 
 let indexBuffer = Buffer.alloc(0);
@@ -20,7 +20,7 @@ fs.readFile('./files/pair-programming.txt')
   .then((fileContents) => {
 
     indexBuffer = Buffer.concat([indexBuffer, buffers.article, buffers.newline]);
-    console.log(indexBuffer.toString());
+    console.log(bufferToString(indexBuffer));
 
   })
   // .then(() => { console.log(fileBuffer); })
@@ -29,11 +29,11 @@ fs.readFile('./files/pair-programming.txt')
   });
 
 /**
- * createBuffer takes in a string and returns a buffer
- * @param {string} string Input string
+ * stringToBuffer takes in a string and returns a buffer
+ * @param {String} string Input string
  * @returns {Buffer}
  */
-function createBuffer(string) {
+function stringToBuffer(string) {
   let stringBuffer = Buffer.alloc(0);
 
   for (let char of string) {
@@ -42,4 +42,19 @@ function createBuffer(string) {
   }
 
   return stringBuffer;
+}
+
+/**
+ * bufferToString takes in a buffer and returns a string
+ * @param {Buffer} buffer Input buffer to convert
+ * @returns {String}
+ */
+function bufferToString(buffer) {
+  let string = '';
+
+  for (let code of buffer) {
+    string += String.fromCharCode(code);
+  }
+
+  return string;
 }
